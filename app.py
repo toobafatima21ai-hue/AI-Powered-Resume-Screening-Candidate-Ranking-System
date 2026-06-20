@@ -13,16 +13,16 @@ from matching_engine import rank_candidates
 import ai_features
 from vector_search import search_candidates, build_index
 from clustering import cluster_candidates, describe_cluster
-
+from rag_assistant import ask_recruiter_assistant, build_chunk_index
 st.set_page_config(page_title="AI Resume Screener", layout="wide")
 init_db()
 
-st.title("🎯 AI-Powered Resume Screening & Candidate Ranking")
+st.title("✉ AI-Powered Resume Screening & Candidate Ranking")
 
 tabs = st.tabs([
     "📤 Upload Resumes", "📝 Job Description", "🏆 Rankings",
     "👤 Candidate Detail", "⚖️ Compare Candidates", "📥 Export",
-    "🔍 Semantic Search", "🧩 Candidate Clustering"
+    "🔍 Semantic Search", "🧩 Candidate Clustering", "🤖 AI Recruiter Chat"
 ])
 # ---------------- Upload Resumes ----------------
 with tabs[0]:
@@ -310,3 +310,75 @@ with tabs[7]:
                 st.error(f"Clustering error: {re_err}")
             except Exception as e:
                 st.error(f"Unexpected error during clustering: {e}")
+# ---------------- AI Recruiter Chat (RAG) ----------------
+with tabs[8]:
+    st.subheader("🤖 AI Recruiter Chat")
+    st.caption(
+        "Ask questions about your candidate pool in plain English. Answers are "
+        "grounded in actual resume content retrieved via FAISS — not the model's "
+        "general knowledge — and cite which candidate each fact came from."
+    )
+
+    if not ai_features.is_available():
+        st.warning(
+            "Set the `GEMINI_API_KEY` environment variable to enable this feature."
+        )
+    else:
+        candidates = get_all_candidates()
+        if not candidates:
+            st.info("Upload resumes first.")
+        else:
+            col_a, col_b = st.columns([3, 1])
+            with col_a:
+                st.caption(f"{len(candidates)} candidate(s) available to query.")
+            with col_b:
+                if st.button("🔄 Rebuild chunk index"):
+                    try:
+                        with st.spinner("Re-indexing resume chunks..."):
+                            build_chunk_index(candidates)
+                        st.success("Chunk index rebuilt.")
+                    except Exception as e:
+                        st.error(f"Failed to rebuild index: {e}")
+
+            if "chat_history" not in st.session_state:
+                st.session_state["chat_history"] = []
+
+            # Render past turns
+            for turn in st.session_state["chat_history"]:
+                with st.chat_message("user"):
+                    st.write(turn["question"])
+                with st.chat_message("assistant"):
+                    st.write(turn["answer"])
+                    if turn["sources"]:
+                        with st.expander(f"📎 {len(turn['sources'])} source(s) used"):
+                            for s in turn["sources"]:
+                                st.caption(
+                                    f"**{s['name']}** ({s['email']}) — similarity {s['similarity']}%"
+                                )
+                                st.text(s["chunk_text"][:300] + ("..." if len(s["chunk_text"]) > 300 else ""))
+
+            question = st.chat_input("e.g. Which candidates have led a team before?")
+            if question:
+                with st.chat_message("user"):
+                    st.write(question)
+                with st.chat_message("assistant"):
+                    with st.spinner("Retrieving relevant resumes and generating answer..."):
+                        result = ask_recruiter_assistant(question, k=6)
+                    st.write(result["answer"])
+                    if result["sources"]:
+                        with st.expander(f"📎 {len(result['sources'])} source(s) used"):
+                            for s in result["sources"]:
+                                st.caption(
+                                    f"**{s['name']}** ({s['email']}) — similarity {s['similarity']}%"
+                                )
+                                st.text(s["chunk_text"][:300] + ("..." if len(s["chunk_text"]) > 300 else ""))
+
+                st.session_state["chat_history"].append({
+                    "question": question,
+                    "answer": result["answer"],
+                    "sources": result["sources"],
+                })
+
+            if st.session_state["chat_history"] and st.button("🗑️ Clear chat history"):
+                st.session_state["chat_history"] = []
+                st.rerun()
