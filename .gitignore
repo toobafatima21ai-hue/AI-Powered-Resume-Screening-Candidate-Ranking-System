@@ -1,46 +1,6 @@
-# Virtual Environment
-
 .venv/
-venv/
-
-# Environment Variables
-
+__pycache__/
 .env
-
-# Python Cache
-
-**pycache**/
-*.py[cod]
-*$py.class
-
-# VS Code
-
-.vscode/
-
-# Streamlit Cache
-
-.streamlit/secrets.toml
-
-# Logs
-
-*.log
-
-# OS Files
-
-.DS_Store
-Thumbs.db
-
-# Build Files
-
-build/
-dist/
-*.egg-info/
-
-# Jupyter
-
-.ipynb_checkpoints/
-
-# Temporary Files
-
-temp/
-tmp/
+*.db
+*.faiss
+*.pkl
