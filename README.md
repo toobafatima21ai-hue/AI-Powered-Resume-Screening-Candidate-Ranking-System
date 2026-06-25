@@ -1,237 +1,82 @@
-# 🎯 IntelliHire — AI-Powered Resume Screening, Candidate Ranking & Recruiter Copilot
-
-> An advanced AI recruitment platform that automates resume screening, semantic candidate matching, talent discovery, and recruiter decision-making through Retrieval-Augmented Generation (RAG), FAISS vector search, transformer embeddings, and Google Gemini.
-
-IntelliHire transforms traditional recruitment workflows by combining Natural Language Processing (NLP), Semantic Search, Vector Databases, Unsupervised Learning, and Large Language Models (LLMs) into a single end-to-end hiring assistant. Recruiters can upload resumes, rank candidates, perform semantic searches, explore talent clusters, and interact with an AI-powered recruiter chatbot that answers questions grounded in real resume content.
-
 ---
 
-## 🚀 Key Highlights
+title: IntelliHire AI Resume Screening
+emoji: 🚀
+colorFrom: blue
+colorTo: green
+sdk: streamlit
+sdk_version: "1.38.0"
+app_file: app.py
+pinned: false
+-------------
 
-*  Automated Resume Parsing & Information Extraction
-*  Explainable AI-Based Candidate Ranking
-*  Semantic Candidate Search using FAISS
-*  Transformer Embeddings with **all-MiniLM-L6-v2**
-*  AI Recruiter Chatbot powered by **RAG + Gemini 1.5 Flash**
-* Candidate Clustering using K-Means
-*  Skill Gap Analysis & Resume Recommendations
-*  AI-Generated Interview Questions
-*  Local Vector Database & Persistent Candidate Search
-* 📈 Interactive Streamlit Dashboard
+# 🎯 IntelliHire — AI-Powered Resume Screening & Candidate Ranking System
 
----
+An advanced AI-powered recruitment platform that automates resume parsing, candidate ranking, semantic search, candidate clustering, and recruiter Q&A using Retrieval-Augmented Generation (RAG), FAISS vector search, Sentence Transformers, and Gemini LLMs.
 
-## 🧠 AI & Machine Learning Architecture
+## 🚀 Key Features
 
-IntelliHire combines multiple AI techniques into a layered recruitment intelligence pipeline:
+* 📄 Automated Resume Parsing (PDF)
+* 🧠 NLP-based Candidate Information Extraction
+* 🎯 AI-Powered Resume Screening & Ranking
+* 🔍 Semantic Candidate Search using FAISS
+* 🤖 Recruiter Chatbot powered by RAG
+* 📊 Candidate Clustering & Talent Segmentation
+* 📝 AI-generated Candidate Summaries
+* 🎤 AI-generated Interview Questions
+* 📈 Skill Gap Analysis
+* 📥 CSV Export of Ranked Candidates
 
-### 1. Resume Understanding
+## 🧠 AI/ML Technologies Used
 
-* **spaCy (en_core_web_sm)** for Named Entity Recognition (NER)
-* Regex-based extraction for emails, phone numbers, skills, education, and experience
-* Section-aware resume parsing
-
-### 2. Semantic Representation
-
-* **Sentence Transformers**
-* Model: **all-MiniLM-L6-v2**
-* Generates 384-dimensional embeddings for resumes and job descriptions
-
-### 3. Candidate Matching
-
-* Cosine Similarity
-* Skill Matching
-* Experience Matching
-* Explainable weighted scoring system
-
-### 4. Vector Search Engine
-
-* **FAISS (Facebook AI Similarity Search)**
-* Resume-level semantic retrieval
-* Chunk-level retrieval for RAG
-* Fast nearest-neighbor search across candidate pools
-
-### 5. Candidate Clustering
-
-* K-Means Clustering
-* Silhouette Score Optimization
-* Automatic talent segmentation
-
-### 6. Generative AI Layer
-
-* **Google Gemini 1.5 Flash**
-* Recruiter summaries
-* Skill-gap analysis
-* Interview question generation
-* Resume improvement recommendations
-
----
-
-## 🤖 RAG-Powered Recruiter Chatbot
-
-The AI Recruiter Copilot enables recruiters to interact with their candidate pool using natural language.
-
-Example Questions:
-
-* "Which candidates have experience leading teams?"
-* "Who has the strongest NLP background?"
-* "Compare the top 3 candidates for this AI Engineer role."
-* "Which candidates have both AWS and Machine Learning experience?"
-
-### RAG Workflow
-
-Recruiter Query
-↓
-MiniLM Embedding Generation
-↓
-FAISS Vector Retrieval
-↓
-Top Relevant Resume Chunks Retrieved
-↓
-Context Augmentation
-↓
-Gemini 1.5 Flash Response Generation
-↓
-Grounded Answer with Candidate Citations
-
-Unlike traditional chatbots, every response is generated from retrieved resume content, making the system transparent, explainable, and less prone to hallucinations.
-
----
-
-## ✨ Core Features
-
-### Resume Processing
-
-* Bulk PDF Upload
-* Automated Candidate Profiling
-* Experience Estimation
-* Skill Extraction
-
-### Job Description Analysis
-
-* Required Skill Detection
-* Preferred Skill Detection
-* Experience Requirement Extraction
-
-### Candidate Ranking
-
-* Explainable Scoring
-* Semantic Similarity Matching
-* Skill-Based Evaluation
-* Experience-Based Evaluation
-
-### Semantic Search
-
-* Natural Language Candidate Search
-* FAISS-Powered Retrieval
-* Context-Aware Matching
-
-### AI Insights
-
-* Recruiter Summaries
-* Skill Gap Analysis
-* Interview Question Generation
-* Resume Enhancement Suggestions
-
-### Recruiter Dashboard
-
-* Candidate Comparison
-* Talent Clustering
-* Search & Filtering
-* CSV Export
-
----
-
-## 🏗️ System Architecture
-
-PDF Resumes
-↓
-Resume Parser (spaCy + Regex)
-↓
-Structured Candidate Profiles
-↓
-SQLite Database
-↓
-Embedding Generation (all-MiniLM-L6-v2)
-↓
-FAISS Vector Index
-↓
-Candidate Matching & Ranking
-↓
-RAG Retrieval Pipeline
-↓
-Gemini 1.5 Flash
-↓
-Recruiter Dashboard & AI Copilot
-
----
-
- 
-
-## ⚙️ Explainable Candidate Scoring
-
-```text
-Final Score =
-( Skill Match × 50% )
-+ ( Semantic Similarity × 30% )
-+ ( Experience Match × 20% )
-```
-
-| Component           | Purpose                                          |
-| ------------------- | ------------------------------------------------ |
-| Skill Match         | Required & preferred skill alignment             |
-| Semantic Similarity | Contextual relevance using MiniLM embeddings     |
-| Experience Match    | Years of experience compared to job requirements |
-
-Every score is fully explainable and auditable.
-
----
-
-## 🛠️ Technology Stack
-
-### Frontend
-
+* spaCy (`en_core_web_sm`)
+* Sentence Transformers (`all-MiniLM-L6-v2`)
+* FAISS Vector Database
+* Retrieval-Augmented Generation (RAG)
+* Google Gemini 1.5 Flash
+* scikit-learn
 * Streamlit
 
-### AI & NLP
+## 🏗️ Architecture
 
-* spaCy
-* Sentence Transformers
-* all-MiniLM-L6-v2
-* Scikit-learn
+Resume Upload
+→ Resume Parsing
+→ Information Extraction
+→ Embedding Generation (MiniLM)
+→ FAISS Vector Index
+→ Candidate Ranking
+→ Semantic Search
+→ RAG Retrieval
+→ Gemini Response Generation
 
-### Vector Search
+## 🛠️ Tech Stack
 
+* Python
+* Streamlit
+* SQLite
 * FAISS
-
-### Generative AI
-
-* Google Gemini 1.5 Flash
-
-### Data Processing
-
-* Pandas
+* Sentence Transformers
+* spaCy
+* scikit-learn
+* Google Gemini API
 * pdfplumber
 
-### Storage
+## 📌 Model Used
 
-* SQLite
+**Embedding Model**
 
-### Environment Management
+* all-MiniLM-L6-v2
 
-* python-dotenv
+**LLM**
 
- 
+* Gemini 1.5 Flash
 
-## 📊 Business Impact
+## 👨‍💻 Developed As Part Of
 
-* Reduces manual resume screening effort
-* Improves candidate discovery through semantic search
-* Enables explainable AI-driven hiring decisions
-* Provides recruiters with grounded, citation-backed insights
-* Supports scalable recruitment workflows
+Tyzeix Core AI Internship Project
 
----
+## 🔗 Links
 
- 
- 
+GitHub Repository: Add your GitHub link here
+
+Live Demo: Add your deployment link here
