@@ -5,8 +5,7 @@
 IntelliHire transforms traditional recruitment workflows by combining Natural Language Processing (NLP), Semantic Search, Vector Databases, Unsupervised Learning, and Large Language Models (LLMs) into a single end-to-end hiring assistant. Recruiters can upload resumes, rank candidates, perform semantic searches, explore talent clusters, and interact with an AI-powered recruiter chatbot that answers questions grounded in real resume content.
 
 ---
-live demo link: https://huggingface.co/spaces/tooba21/AI_RESUME_SCREENER
-
+live demo link: https://huggingface.co/spaces/tooba21/AI_RESUME_SCANNER
 ## 🚀 Key Highlights
 
 *  Automated Resume Parsing & Information Extraction
